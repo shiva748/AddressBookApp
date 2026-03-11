@@ -8,12 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class AddressBookService {
     private AddressBookRepo addressBookRepo;
     @Autowired
     public AddressBookService(AddressBookRepo addressBookRepo) {
         this.addressBookRepo = addressBookRepo;
+    }
+
+    public List<AddressBook> getAddressBooks() {
+        return addressBookRepo.findAll();
     }
 
     public AddressBook createAddressBook(AddressBookDto addressBook) {

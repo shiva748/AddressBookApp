@@ -7,13 +7,12 @@ import org.addressbook.app.service.AddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/addressbook")
+@RequestMapping("/addressbooks")
 public class AddressBookController {
 
     private AddressBookService addressBookService;
@@ -26,5 +25,10 @@ public class AddressBookController {
     @PostMapping("/create")
     public ResponseEntity<AddressBook> addAddress(@Valid @RequestBody AddressBookDto addressBookDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(addressBookService.createAddressBook(addressBookDto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AddressBook>> getAllAddressBooks() {
+        return ResponseEntity.status(HttpStatus.OK).body(addressBookService.getAddressBooks());
     }
 }
