@@ -34,4 +34,14 @@ public class ContactSearchController {
     public ResponseEntity<Map<String, List<Contact>>> groupByState() {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.viewPersonByState());
     }
+
+    @GetMapping("/count/city")
+    public ResponseEntity<Map<String, Long>> countByCity() {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.countPersonByCity());
+    }
+
+    @GetMapping("/count/state")
+    public ResponseEntity<Map<String, Long>> countByState() {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.countPersonByState());
+    }
 }
