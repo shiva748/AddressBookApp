@@ -28,4 +28,9 @@ public class ContactController {
     public ResponseEntity<Contact> updateContact(@PathVariable("addressBookId") Long addressBookId, @PathVariable("contactId") Long contactId, @Valid @RequestBody ContactDto updateContactDto) {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.updateContact(addressBookId, contactId, updateContactDto));
     }
+
+    @DeleteMapping("/contact/{contactId}")
+    public ResponseEntity<Contact> deleteContact(@PathVariable("addressBookId") Long addressBookId, @PathVariable("contactId") Long contactId) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(contactService.deleteContact(addressBookId, contactId));
+    }
 }

@@ -48,4 +48,13 @@ public class ContactService {
 
         return contactRepo.save(contact);
     }
+
+    public Contact deleteContact(Long addressBookId, Long contactId) {
+        Contact contact = contactRepo.findByIdAndAddressBookId(contactId, addressBookId).orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "The requested contact does not exist in the specified address book."
+        ));
+        contactRepo.delete(contact);
+        return contact;
+    }
 }

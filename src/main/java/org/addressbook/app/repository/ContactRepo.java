@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ContactRepo extends JpaRepository<Contact, Long> {
-    public Optional<Contact> findByIdAndAddressBookId(Long id, Long addressBookId);
+    Optional<Contact> findByIdAndAddressBookId(Long id, Long addressBookId);
 }
