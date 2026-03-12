@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddContactDto {
+public class ContactDto {
     @NotBlank(message = "First Name is required")
     @Pattern(regexp = "^[A-Za-z]{3,20}$", message = "First name must contain only letters (3-20 characters)")
     private String firstName;

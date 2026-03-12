@@ -1,5 +1,6 @@
 package org.addressbook.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class Contact {
     private String city;
     private String state;
     private String zip;
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "addressBookId", nullable = false)
     private AddressBook addressBook;
