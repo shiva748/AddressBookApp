@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ContactService {
@@ -26,11 +28,13 @@ public class ContactService {
     public Contact addContact(Long addressBookId, ContactDto addContactDto) {
         AddressBook book = addressBookRepo.findById(addressBookId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_CONTENT, "Address Book Not Found"));
-        if(contactRepo.existsByFirstNameAndLastNameAndAddressBookId(addContactDto.getFirstName(), addContactDto.getLastName(), addressBookId)){
+        if (contactRepo.existsByFirstNameAndLastNameAndAddressBookId(addContactDto.getFirstName(), addContactDto.getLastName(), addressBookId)) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_CONTENT, "Contact Already Exists In AddressBook");
         }
         return contactRepo.save(Contact.builder().firstName(addContactDto.getFirstName()).lastName(addContactDto.getLastName()).email(addContactDto.getEmail()).phone(addContactDto.getPhoneNumber()).address(addContactDto.getAddress()).city(addContactDto.getCity()).state(addContactDto.getState()).zip(addContactDto.getZip()).addressBook(book).build());
-    };
+    }
+
+    ;
 
     public Contact updateContact(Long addressBookId, Long contactId, ContactDto updateContactDto) {
 
@@ -63,5 +67,13 @@ public class ContactService {
 
     public List<Contact> searchByCityOrState(String city, String state) {
         return contactRepo.findByCityOrState(city, state);
+    }
+
+    public Map<String, List<Contact>> viewPersonByCity(){
+        return contactRepo.findAll().stream().collect(Collectors.groupingBy(Contact::getCity));
+    }
+
+    public Map<String, List<Contact>> viewPersonByState(){
+        return contactRepo.findAll().stream().collect(Collectors.groupingBy(Contact::getState));
     }
 }

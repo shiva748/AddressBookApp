@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/contacts")
@@ -22,5 +23,15 @@ public class ContactSearchController {
     @GetMapping("/search")
     public ResponseEntity<List<Contact>> searchByCity(@RequestParam(required = false) String city,  @RequestParam(required = false) String state) {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.searchByCityOrState(city, state));
+    }
+
+    @GetMapping("/group/city")
+    public ResponseEntity<Map<String, List<Contact>>> groupByCity() {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.viewPersonByCity());
+    }
+
+    @GetMapping("/group/state")
+    public ResponseEntity<Map<String, List<Contact>>> groupByState() {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.viewPersonByState());
     }
 }
