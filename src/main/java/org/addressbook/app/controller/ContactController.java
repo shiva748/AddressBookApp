@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/contacts")
+@RequestMapping("/addressbook/{addressBookId}/contacts")
 public class ContactController {
     private ContactService contactService;
 
@@ -19,7 +19,7 @@ public class ContactController {
         this.contactService = contactService;
     }
 
-    @PostMapping("/{addressBookId}")
+    @PostMapping
     public ResponseEntity<Contact> createContact(@PathVariable("addressBookId") Long addressBookId, @Valid @RequestBody AddContactDto addContactDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(contactService.addContact(addressBookId, addContactDto));
     }
