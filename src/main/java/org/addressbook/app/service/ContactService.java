@@ -6,6 +6,7 @@ import org.addressbook.app.entity.Contact;
 import org.addressbook.app.repository.AddressBookRepo;
 import org.addressbook.app.repository.ContactRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -83,5 +84,11 @@ public class ContactService {
 
     public Map<String, Long> countPersonByCity(){
         return contactRepo.findAll().stream().collect(Collectors.groupingBy(Contact::getCity, Collectors.counting()));
+    }
+
+    public List<Contact> getSortedByName(){
+        return contactRepo.findAll(
+                Sort.by("firstName", "lastName")
+        );
     }
 }

@@ -44,4 +44,9 @@ public class ContactSearchController {
     public ResponseEntity<Map<String, Long>> countByState() {
         return ResponseEntity.status(HttpStatus.OK).body(contactService.countPersonByState());
     }
+
+    @GetMapping("/sort/name")
+    public ResponseEntity<List<Contact>> sortByName() {
+        return ResponseEntity.status(200).body(contactService.getSortedByName());
+    }
 }
