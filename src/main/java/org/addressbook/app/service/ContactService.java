@@ -1,6 +1,5 @@
 package org.addressbook.app.service;
 
-import jakarta.validation.Valid;
 import org.addressbook.app.dto.ContactDto;
 import org.addressbook.app.entity.AddressBook;
 import org.addressbook.app.entity.Contact;
@@ -9,8 +8,9 @@ import org.addressbook.app.repository.ContactRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 public class ContactService {
@@ -59,5 +59,9 @@ public class ContactService {
         ));
         contactRepo.delete(contact);
         return contact;
+    }
+
+    public List<Contact> searchByCityOrState(String city, String state) {
+        return contactRepo.findByCityOrState(city, state);
     }
 }

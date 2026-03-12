@@ -1,0 +1,26 @@
+package org.addressbook.app.controller;
+
+import org.addressbook.app.entity.Contact;
+import org.addressbook.app.service.ContactService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/contacts")
+public class ContactSearchController {
+    private ContactService contactService;
+
+    @Autowired
+    public ContactSearchController(ContactService contactService) {
+        this.contactService = contactService;
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Contact>> searchByCity(@RequestParam(required = false) String city,  @RequestParam(required = false) String state) {
+        return ResponseEntity.status(HttpStatus.OK).body(contactService.searchByCityOrState(city, state));
+    }
+}
