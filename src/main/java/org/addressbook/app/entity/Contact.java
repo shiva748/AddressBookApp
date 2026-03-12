@@ -8,6 +8,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "unique_contact_per_addressbook",
+                        columnNames = {"firstName", "lastName", "addressBookId"}
+                )
+        }
+)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

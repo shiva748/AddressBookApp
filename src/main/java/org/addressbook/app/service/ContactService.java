@@ -26,6 +26,9 @@ public class ContactService {
     public Contact addContact(Long addressBookId, ContactDto addContactDto) {
         AddressBook book = addressBookRepo.findById(addressBookId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNPROCESSABLE_CONTENT, "Address Book Not Found"));
+        if(contactRepo.existsByFirstNameAndLastNameAndAddressBookId(addContactDto.getFirstName(), addContactDto.getLastName(), addressBookId)){
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_CONTENT, "Contact Already Exists In AddressBook");
+        }
         return contactRepo.save(Contact.builder().firstName(addContactDto.getFirstName()).lastName(addContactDto.getLastName()).email(addContactDto.getEmail()).phone(addContactDto.getPhoneNumber()).address(addContactDto.getAddress()).city(addContactDto.getCity()).state(addContactDto.getState()).zip(addContactDto.getZip()).addressBook(book).build());
     };
 
