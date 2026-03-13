@@ -49,4 +49,19 @@ public class ContactSearchController {
     public ResponseEntity<List<Contact>> sortByName() {
         return ResponseEntity.status(200).body(contactService.getSortedByName());
     }
+
+    @GetMapping("/sort/city")
+    public ResponseEntity<List<Contact>> sortByCity() {
+        return ResponseEntity.ok(contactService.sortContactsByCity());
+    }
+
+    @GetMapping("/sort/state")
+    public ResponseEntity<List<Contact>> sortByState() {
+        return ResponseEntity.ok(contactService.sortContactsByState());
+    }
+
+    @GetMapping("/sort/zip")
+    public ResponseEntity<List<Contact>> sortByZip() {
+        return ResponseEntity.ok(contactService.sortContactsByZip());
+    }
 }

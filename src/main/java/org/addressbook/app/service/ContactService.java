@@ -91,4 +91,22 @@ public class ContactService {
                 Sort.by("firstName", "lastName")
         );
     }
+
+    public List<Contact> sortContactsByCity() {
+        return contactRepo.findAll(
+                Sort.by("city").ascending()
+        );
+    }
+
+    public List<Contact> sortContactsByState() {
+        return contactRepo.findAll(
+                Sort.by("state").ascending()
+        );
+    }
+
+    public List<Contact> sortContactsByZip() {
+        return contactRepo.findAll(
+                Sort.by("zip").ascending()
+        );
+    }
 }
